@@ -1,3 +1,5 @@
+from itertools import product
+
 #utilitarios
 def feedback_opcion_invalida():
     print("Debe ingresar una opcion válida")
@@ -167,7 +169,7 @@ def operar_con_anios():
         pares = 0
         impares = 0
         for anio in anios_de_nacimiento:
-            if anio % 2 == 0:
+            if int(anio) % 2 == 0:
                 pares = pares + 1
             else:
                 impares = impares + 1
@@ -190,6 +192,22 @@ def operar_con_anios():
             if es_anio_bisiesto(int(anio)):
                 print("Tenemos un año especial")
 
+    def producto_cartesiano():
+        edades = set()
+        anios = set()
+        
+        for anio in anios_de_nacimiento:
+            anio = int(anio)
+            edad = 2025 - anio
+            anios.add(anio)
+            edades.add(edad)
+        producto = list(product(anios,edades))
+        print(f"Producto cartesiano de años y edades {producto}") 
+    
+    anios_pares()
+    gen_z()
+    anio_especial()
+    producto_cartesiano()
 
 #menus
 def menu_dni():
@@ -268,8 +286,14 @@ def menu_anio():
             print("Ingrese al menos un año de nacimiento para operar")
         else:
             print("2.- Operar")
-
+        print("0.- Salir")
         opcion = pedir_opcion()
+        match opcion:
+            case "1":
+                ingresa_anio()
+            case "2":
+                if len(anios_de_nacimiento) > 0:
+                    operar_con_anios()
 
 opcion = ""
 while(opcion != "3"):
